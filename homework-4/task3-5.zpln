@@ -1,0 +1,398 @@
+﻿{
+  "paragraphs": [
+    {
+      "title": "[TASK-3] Creating partitioned table mimicking ratings_text",
+      "text": "%jdbc(hive)\n\n\nCREATE TABLE IF NOT EXISTS ratings_task3 (\n    UserID INT,\n    MovieID INT,\n    Rating DOUBLE,\n    Time_stamp BIGINT\n)\nPARTITIONED BY (year INT)\nSTORED AS TEXTFILE;",
+      "user": "anonymous",
+      "dateUpdated": "2026-03-14T16:57:29+0000",
+      "progress": 0,
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1773500399216_1144723431",
+      "id": "paragraph_1773500399216_1144723431",
+      "dateCreated": "2026-03-14T14:59:59+0000",
+      "dateStarted": "2026-03-14T15:08:10+0000",
+      "dateFinished": "2026-03-14T15:08:11+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:18422"
+    },
+    {
+      "title": "[TASK-3] Loading data into created table",
+      "text": "%jdbc(hive)\n\n\nSET hive.exec.dynamic.partition=true;\nSET hive.exec.dynamic.partition.mode=nonstrict;\nSET hive.server2.in.place.progress=false;\n\n\nINSERT OVERWRITE TABLE ratings_task3 PARTITION(year)\nSELECT \n    UserID, \n    MovieID, \n    Rating, \n    Time_stamp,\n    year(from_unixtime(Time_stamp)) AS year\nFROM ratings_text;",
+      "user": "anonymous",
+      "dateUpdated": "2026-03-14T16:59:10+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1\n\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1\n\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1\nINFO  : Compiling command(queryId=hive_20260314151323_ed5b99c4-87c8-4753-b327-051c310d0087): \n\n\n\n\n\n\n\nINSERT OVERWRITE TABLE ratings_task3 PARTITION(year)\nSELECT \n    UserID, \n    MovieID, \n    Rating, \n    Time_stamp,\n    year(from_unixtime(Time_stamp)) AS year\nFROM ratings_text\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:userid, type:int, comment:null), FieldSchema(name:movieid, type:int, comment:null), FieldSchema(name:rating, type:double, comment:null), FieldSchema(name:time_stamp, type:bigint, comment:null), FieldSchema(name:year, type:int, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=hive_20260314151323_ed5b99c4-87c8-4753-b327-051c310d0087); Time taken: 0.314 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=hive_20260314151323_ed5b99c4-87c8-4753-b327-051c310d0087): \n\n\n\n\n\n\n\nINSERT OVERWRITE TABLE ratings_task3 PARTITION(year)\nSELECT \n    UserID, \n    MovieID, \n    Rating, \n    Time_stamp,\n    year(from_unixtime(Time_stamp)) AS year\nFROM ratings_text\nINFO  : Query ID = hive_20260314151323_ed5b99c4-87c8-4753-b327-051c310d0087\nINFO  : Total jobs = 1\nINFO  : Launching Job 1 out of 1\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Subscribed to counters: [] for queryId: hive_20260314151323_ed5b99c4-87c8-4753-b327-051c310d0087\nINFO  : Tez session hasn't been created yet. Opening session\n\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1773500879426_16655203",
+      "id": "paragraph_1773500879426_16655203",
+      "dateCreated": "2026-03-14T15:07:59+0000",
+      "dateStarted": "2026-03-14T15:13:23+0000",
+      "dateFinished": "2026-03-14T15:15:22+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:18423"
+    },
+    {
+      "title": "[TASK-3] See the number of partitions",
+      "text": "%jdbc(hive)\n\n\nSHOW PARTITIONS ratings_task3;",
+      "user": "anonymous",
+      "dateUpdated": "2026-03-14T17:40:33+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 500,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "partition": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "multiBarChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "stackedAreaChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "partition",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": []
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "partition\nyear=1995\nyear=1996\nyear=1997\nyear=1998\nyear=1999\nyear=2000\nyear=2001\nyear=2002\nyear=2003\nyear=2004\nyear=2005\nyear=2006\nyear=2007\nyear=2008\nyear=2009\nyear=2010\nyear=2011\nyear=2012\nyear=2013\nyear=2014\nyear=2015\nyear=2016\nyear=2017\nyear=2018\nyear=2019\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1773500913889_924741106",
+      "id": "paragraph_1773500913889_924741106",
+      "dateCreated": "2026-03-14T15:08:33+0000",
+      "dateStarted": "2026-03-14T15:15:30+0000",
+      "dateFinished": "2026-03-14T15:15:31+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:18424"
+    },
+    {
+      "title": "[TASK-4] Count movies by genre",
+      "text": "%jdbc(hive)\n\n\nSET hive.server2.in.place.progress=false;\n\nSELECT \n    genre, \n    COUNT(MovieID) AS cnt\nFROM movies_text\nLATERAL VIEW explode(split(Genres, '\\\\|')) exploded_table AS genre\nGROUP BY genre\nHAVING cnt > 200\nORDER BY cnt DESC;",
+      "user": "anonymous",
+      "dateUpdated": "2026-03-14T17:08:07+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "title": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 415,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "genre": "string",
+                      "cnt": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1\nINFO  : Compiling command(queryId=hive_20260314170743_41439128-0bf5-4fa2-87c3-380c261ec2e5): \n\n\n\n\nSELECT \n    genre, \n    COUNT(MovieID) AS cnt\nFROM movies_text\nLATERAL VIEW explode(split(Genres, '\\\\|')) exploded_table AS genre\nGROUP BY genre\nHAVING cnt > 200\nORDER BY cnt DESC\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Semantic Analysis Completed (retrial = false)\nINFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:genre, type:string, comment:null), FieldSchema(name:cnt, type:bigint, comment:null)], properties:null)\nINFO  : Completed compiling command(queryId=hive_20260314170743_41439128-0bf5-4fa2-87c3-380c261ec2e5); Time taken: 0.078 seconds\nINFO  : Concurrency mode is disabled, not creating a lock manager\nINFO  : Executing command(queryId=hive_20260314170743_41439128-0bf5-4fa2-87c3-380c261ec2e5): \n\n\n\n\nSELECT \n    genre, \n    COUNT(MovieID) AS cnt\nFROM movies_text\nLATERAL VIEW explode(split(Genres, '\\\\|')) exploded_table AS genre\nGROUP BY genre\nHAVING cnt > 200\nORDER BY cnt DESC\nINFO  : Query ID = hive_20260314170743_41439128-0bf5-4fa2-87c3-380c261ec2e5\nINFO  : Total jobs = 1\nINFO  : Launching Job 1 out of 1\nINFO  : Starting task [Stage-1:MAPRED] in serial mode\nINFO  : Subscribed to counters: [] for queryId: hive_20260314170743_41439128-0bf5-4fa2-87c3-380c261ec2e5\nINFO  : Tez session hasn't been created yet. Opening session\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "genre\tcnt\nDrama\t22111\nComedy\t14831\nThriller\t7645\nRomance\t6718\nAction\t6678\nHorror\t5361\nDocumentary\t5083\n(no genres listed)\t4913\nCrime\t4615\nAdventure\t3558\nSci-Fi\t3261\nAnimation\t2712\nChildren\t2632\nMystery\t2516\nFantasy\t2399\nWar\t1578\nWestern\t1173\nMusical\t851\nFilm-Noir\t253\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1773501056780_1461899256",
+      "id": "paragraph_1773501056780_1461899256",
+      "dateCreated": "2026-03-14T15:10:56+0000",
+      "dateStarted": "2026-03-14T17:07:42+0000",
+      "dateFinished": "2026-03-14T17:08:06+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:18425"
+    },
+    {
+      "text": "%jdbc(hive)\n\n\nSET hive.server2.in.place.progress=false;\n\nWITH RankedTaggedMovies AS (\n    SELECT \n        t.Tag,\n        m.Title,\n        AVG(r.Rating) AS avg_rating,\n        DENSE_RANK() OVER (PARTITION BY t.Tag ORDER BY AVG(r.Rating) DESC) as rank\n    FROM tags_text t\n    JOIN ratings_text r ON t.MovieID = r.MovieID\n    JOIN movies_text m ON t.MovieID = m.MovieID\n    WHERE t.Tag IN ('based on a book', 'based on a play')\n    GROUP BY t.Tag, t.MovieID, m.Title\n)\n\nSELECT \n    Tag,\n    Title,\n    avg_rating,\n    rank\nFROM RankedTaggedMovies\nWHERE rank <= 5\nORDER BY Tag, rank ASC;",
+      "user": "anonymous",
+      "dateUpdated": "2026-03-14T17:38:48+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 385,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "tag": "string",
+                      "title": "string",
+                      "avg_rating": "string",
+                      "rank": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1\n"
+          },
+          {
+            "type": "TABLE",
+            "data": "tag\ttitle\tavg_rating\trank\nbased on a book\t\"English\t4.5\t1\nbased on a book\t\"Shawshank Redemption\t4.413576004516335\t2\nbased on a book\tPollyanna (2003)\t4.384615384615385\t3\nbased on a book\t\"Godfather\t4.324336165187245\t4\nbased on a book\t\"Red\t4.25\t5\nbased on a play\tThe Caretaker (1963)\t4.25\t1\nbased on a play\t12 Angry Men (1957)\t4.243014062405697\t2\nbased on a play\tCasablanca (1942)\t4.206563778356267\t3\nbased on a play\tRan (1985)\t4.142049808429118\t4\nbased on a play\t\"O Auto da Compadecida (Dog's Will\t4.124260355029586\t5\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1773507342023_908796337",
+      "id": "paragraph_1773507342023_908796337",
+      "dateCreated": "2026-03-14T16:55:42+0000",
+      "dateStarted": "2026-03-14T17:16:51+0000",
+      "dateFinished": "2026-03-14T17:18:16+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:18426"
+    },
+    {
+      "text": "%jdbc\n",
+      "user": "anonymous",
+      "dateUpdated": "2026-03-14T17:16:51+0000",
+      "progress": 0,
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1773508611765_1755652896",
+      "id": "paragraph_1773508611765_1755652896",
+      "dateCreated": "2026-03-14T17:16:51+0000",
+      "status": "READY",
+      "$$hashKey": "object:18427"
+    }
+  ],
+  "name": "Tasks 3-5",
+  "id": "2MKGPQDGY",
+  "defaultInterpreterGroup": "jdbc",
+  "version": "0.10.1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "path": "/Tasks 3-5"
+}
